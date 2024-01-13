@@ -20,7 +20,6 @@ export const Home = () => {
         setUser(null)
         setUserNotFound(null)
         try {
-            console.log(username)
             const response = await axios.get(`https://api.github.com/users/${username}`)
             const { id, name, avatar_url, followers, following } = response.data
 
