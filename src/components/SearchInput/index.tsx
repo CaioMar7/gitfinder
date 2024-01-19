@@ -17,7 +17,6 @@ export const SearchInput = ({loadUser} : SearchProps) => {
         
     }
 
-
     useEffect( () => {
         userInputRef.current?.focus
     }, [])
