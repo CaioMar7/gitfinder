@@ -1,4 +1,5 @@
 import { FaRegStar, FaStar } from "react-icons/fa";
+import { FaEye } from "react-icons/fa";
 
 import { Link } from "react-router-dom";
 
@@ -64,7 +65,7 @@ export const CardUser = ({id, name, avatar_url, followers, following} : UserProp
                     </button>
                 </div>
 
-                <Link to="/"> Ver seus melhores repos </Link>
+                <Link to="/" className="flex items-center justify-center gap-2 bg-gray-600 p-2 font-bold text-white text-xl"> <FaEye/> Ver melhores repos </Link>
             </div>
         </div>
         
