@@ -30,13 +30,10 @@ export const Home = () => {
         setIsLoading(false)
     }
 
-    //const handleFavoriteUser =  (user : UserProps) => {
-    //    localStorage.setItem("GitFavs", JSON.stringify(user))
-    //}
-
     return (
         <>
-            <section className="md:w-4/12 my-0 mx-auto">
+        <div className="bg-gray-900 min-h-screen">
+            <section className="md:w-4/12 my-0 mx-auto bg-gray-800">
                 <div className="flex flex-col gap-6 p-4">
                     <SearchInput loadUser={handleSearchUser}/>
                     {isLoading ? <Loader/> : ""}
@@ -45,6 +42,7 @@ export const Home = () => {
                 </div>
 
             </section>
+        </div>
         </>
     )
 }
