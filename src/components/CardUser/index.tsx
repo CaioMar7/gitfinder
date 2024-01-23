@@ -6,17 +6,17 @@ import { Link } from "react-router-dom";
 import { UserProps } from "../../types/UserProps";
 import { useState, useEffect } from "react";
 
-export const CardUser = ({id, name, avatar_url, followers, following} : UserProps) => {
+export const CardUser = ({id, name, login, avatar_url, followers, following} : UserProps) => {
 
-    const [ favoriteList, setFavoriteList ] = useState<number[]>([])
-    const isFavorited = favoriteList.includes(id)
+    const [ favoriteList, setFavoriteList ] = useState<string[]>([])
+    const isFavorited = favoriteList.includes(login)
 
     const handleFavoriteUser = ( ) => {
         setFavoriteList((prevList) => {
-            if (!prevList.includes(id)) {
-                return [...prevList, id];
+            if (!prevList.includes(login)) {
+                return [...prevList, login];
             } else {
-                return prevList.filter(userId => userId !== id);
+                return prevList.filter(userLogin => userLogin !== login);
             }
         });
     }
@@ -49,7 +49,7 @@ export const CardUser = ({id, name, avatar_url, followers, following} : UserProp
                     <button onClick={handleFavoriteUser} className="flex flex-col items-center w-24">
 
                         {
-                            favoriteList.includes(id) 
+                            favoriteList.includes(login) 
                             ? 
                             <>  
                                 <FaStar/>
@@ -65,7 +65,7 @@ export const CardUser = ({id, name, avatar_url, followers, following} : UserProp
                     </button>
                 </div>
 
-                <Link to="/" className="flex items-center justify-center gap-2 bg-gray-600 p-2 font-bold text-white text-xl"> <FaEye/> Ver melhores repos </Link>
+                <Link to={`/${login}`} className="flex items-center justify-center gap-2 bg-gray-600 p-2 font-bold text-white text-xl"> <FaEye/> Ver melhores repos </Link>
             </div>
         </div>
         

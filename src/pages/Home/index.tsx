@@ -21,9 +21,9 @@ export const Home = () => {
         setUserNotFound(null)
         try {
             const response = await axios.get(`https://api.github.com/users/${username}`)
-            const { id, name, avatar_url, followers, following } = response.data
+            const { id, name, login, avatar_url, followers, following } = response.data
 
-            setUser({id, name, avatar_url, followers, following})
+            setUser({id, name, login, avatar_url, followers, following})
         } catch(error) {
             setUserNotFound(true)
         }
