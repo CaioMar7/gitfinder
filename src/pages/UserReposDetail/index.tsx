@@ -3,20 +3,13 @@ import { useEffect, useState } from "react"
 
 import axios from "axios"
 
-import { Loader } from "../../components/Loader"
 import { MdOutlineArrowBackIos } from "react-icons/md";
 
-import { SiTypescript } from "react-icons/si";
-import { IoLogoJavascript } from "react-icons/io";
+import { UserReposProps } from "../../types/UserReposProps"
 
+import { Loader } from "../../components/Loader"
+import { RepoCard } from "../../components/RepoCard";
 
-type UserReposProps = {
-    id: number,
-    created_at: string,
-    full_name: string,
-    svn_url: string,
-    language: string
-}
 
 export function UserReposDetail() {
 
@@ -68,15 +61,6 @@ export function UserReposDetail() {
 
     },[])
 
-    const getLangIcon = (lang : string ) => {
-        if (lang == "TypeScript") {
-            return <SiTypescript/>
-        }
-        if (lang == "JavaScript") {
-            return <IoLogoJavascript/>
-        }
-    }
-
     
 
     return (
@@ -90,14 +74,8 @@ export function UserReposDetail() {
                     {userNotFound && <h1> Usuário não encontrado </h1>}
 
                     <ul className="flex flex-col gap-4 p-4 overflow-y-auto">
-                        {userRepos?.map((repo) => 
-                        
-                        <li key={repo.id} className="w-full flex flex-col border-x-2 p-2 relative">  
-                            <h2 className="text-gray-100"> {repo.full_name} </h2>
-                            <span className=" absolute top-1 right-4 text-gray-100"> {getLangIcon(repo.language)} </span>
-                            <a className="text-gray-400" href={repo.svn_url}> Ver repositório no GitHub </a>        
-                        </li>
-
+                        {userRepos?.map((repo) =>     
+                            <RepoCard data={repo} />
                         )}
                     </ul>
                     
