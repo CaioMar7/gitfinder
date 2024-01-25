@@ -9,5 +9,6 @@ As ferramentas utilizadas para o desenvolvimento foram:
 - Vite
 - React Icons
 - React Router Dom
+- LocalStorage
 
 - Hooks do React como: useState, useEffect, useNavigate e useParams.
