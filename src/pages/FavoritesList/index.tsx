@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 
+import { IoFilterOutline } from "react-icons/io5";
+
 import axios from "axios"
 
 import { Loader } from "../../components/Loader"
@@ -23,7 +25,7 @@ export function FavoritesList() {
     navigate(-1)
   }
 
-  const handleUnFav = (login: string) : React.MouseEventHandler<HTMLButtonElement>  => {
+  const handleUnFav = (login: string): React.MouseEventHandler<HTMLButtonElement> => {
     return () => {
       setFavoriteList((prevList) => {
         if (prevList) {
@@ -68,13 +70,13 @@ export function FavoritesList() {
     fetchData();
   }, [])
 
-    useEffect(() => {
-      let usersLogin : string[] = []
+  useEffect(() => {
+    let usersLogin: string[] = []
 
-      favoriteList?.map((favUser) => usersLogin.push(favUser.login))
-      localStorage.setItem('@Gitfinder-favoriteList', JSON.stringify(usersLogin));
+    favoriteList?.map((favUser) => usersLogin.push(favUser.login))
+    localStorage.setItem('@Gitfinder-favoriteList', JSON.stringify(usersLogin));
 
-    }, [favoriteList])
+  }, [favoriteList])
 
   return (
     <>
@@ -84,7 +86,19 @@ export function FavoritesList() {
             <h1 className="font-bold text-3xl text-white flex items-center gap-4"> <button onClick={handleBackPage}> <MdOutlineArrowBackIos /> </button> Lista de usuários favoritos </h1>
             {isLoading ? <Loader /> : ""}
             {userNotFound && <h1> Usuário não encontrado </h1>}
-
+            <div className="flex flex-col items-center justify-end gap-2 text-white p-4">
+              <div className="w-full flex items-center justify-end gap-2 text-white">
+                <span> Filter</span>
+                <IoFilterOutline />
+              </div>
+              <div className="w-full flex items-center justify-end gap-2 text-white">
+                <select className="relative text-black">
+                  <option value="none">Select a option</option>
+                  <option value="asc">A-Z</option>
+                  <option value="desc">Z-A</option>
+                </select>
+              </div>
+            </div>
             <ul className="flex flex-col gap-6 p-4 overflow-y-auto">
               {favoriteList?.map((favUser) =>
                 <FavCard key={favUser.id} data={favUser} unFavUser={handleUnFav(favUser.login)} />
