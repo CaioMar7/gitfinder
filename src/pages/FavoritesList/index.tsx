@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useSearchParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 
 import { IoFilterOutline } from "react-icons/io5";
@@ -13,9 +13,24 @@ import { MdOutlineArrowBackIos } from "react-icons/md";
 
 import { UserProps } from "../../types/UserProps"
 
+import {  } from "react";
+
+
 export function FavoritesList() {
 
   const navigate = useNavigate()
+
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  //const [sortOption, setSortOption] = useState<string | undefined>(undefined);
+
+  const handleSortChange: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
+    //setSortOption(e.target.value)
+    //console.log(sortOption)
+
+    setSearchParams({sort: String(e.target.value)})
+  };
+
 
   const [isLoading, setIsLoading] = useState(false)
   const [favoriteList, setFavoriteList] = useState<UserProps[] | null>(null)
@@ -78,6 +93,30 @@ export function FavoritesList() {
 
   }, [favoriteList])
 
+  useEffect(() => {
+
+    const sortOption = searchParams.get('sort')
+
+    if(sortOption == "asc") {
+      const sortedList = favoriteList?.sort((a,b) => {
+        return b.name.localeCompare(a.name)
+      })
+      if(sortedList) {
+        setFavoriteList(sortedList)
+      }
+    }
+
+    if(sortOption == "desc") {
+      const sortedList = favoriteList?.sort((a,b) => {
+        return a.name.localeCompare(b.name)
+      })
+      if(sortedList) {
+        setFavoriteList(sortedList)
+      }
+    }
+
+  }, [searchParams])
+
   return (
     <>
       <div className="bg-gray-900">
@@ -92,8 +131,8 @@ export function FavoritesList() {
                 <IoFilterOutline />
               </div>
               <div className="w-full flex items-center justify-end gap-2 text-white">
-                <select className="relative text-black">
-                  <option value="none">Select a option</option>
+                <select className="relative text-black" onChange={handleSortChange}>
+                  <option value="none"></option>
                   <option value="asc">A-Z</option>
                   <option value="desc">Z-A</option>
                 </select>
